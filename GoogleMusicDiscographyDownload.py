@@ -84,9 +84,6 @@ for i in range(totalTracks):
         trackInfo = api.get_track_info(trackIDs[0])
     except:
         print("Error occurred getting info for " + trackIDs[0] + ". Skipping...")
-        trackErrors = open('E:\\trackErrors.txt','a')
-        trackErrors.write('Info error ' + trackIDs[0] + '\n')
-        trackErrors.close()
         del trackIDs[0]
         continue
     id3Title = str(trackInfo['title'])
@@ -126,9 +123,6 @@ for i in range(totalTracks):
         urlretrieve(url, filePath)
     except:
         print("Error occurred downloading trackID " + trackIDs[0] + ". Skipping...")
-        trackErrors = open('E:\\trackErrors.txt','a')
-        trackErrors.write(trackIDs[0] + '\n')
-        trackErrors.close()
         del trackIDs[0]
         continue
     errorTrack = 0
