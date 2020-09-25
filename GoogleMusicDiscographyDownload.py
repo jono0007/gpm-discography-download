@@ -120,7 +120,7 @@ for i in range(totalTracks):
         print("Song already exists! Skipping...")
         del trackIDs[0]
         continue
-    print("Downloading song " + str(i) + " of " + str(totalTracks) + ": " + id3Title + " by " + id3Artist)
+    print("Downloading song " + str(i+1) + " of " + str(totalTracks) + ": " + id3Title + " by " + id3Artist)
     try:
         url = api.get_stream_url(trackIDs[0])
         urlretrieve(url, filePath)
