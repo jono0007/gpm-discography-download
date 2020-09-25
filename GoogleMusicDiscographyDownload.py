@@ -1,5 +1,4 @@
 # Initialize api and login with oauth_login
-# API already has oauth token from initial run
 from gmusicapi import Mobileclient, CallFailure
 from urllib.request import urlretrieve, urlopen
 from urllib.error import HTTPError,URLError
