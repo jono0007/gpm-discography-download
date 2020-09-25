@@ -1,5 +1,6 @@
 # Initialize api and login with oauth_login
-from gmusicapi import Mobileclient, CallFailure, exceptions
+from gmusicapi import Mobileclient, CallFailure
+from gmusicapi.exceptions import InvalidDeviceId
 from urllib.request import urlretrieve, urlopen
 from urllib.error import HTTPError,URLError
 from mutagen import id3,mp3,File
@@ -11,7 +12,7 @@ if not os.path.exists(api.OAUTH_FILEPATH):
 if not os.path.exists(api.OAUTH_FILEPATH[:-17] + 'deviceID.txt'):
     try:
         api.oauth_login('')
-    except exceptions.InvalidDeviceId as error:
+    except InvalidDeviceId as error:
         deviceID = error.valid_device_ids[0]
         output = open(api.OAUTH_FILEPATH[:-17] + 'deviceID.txt', 'w')
         output.write(deviceID)
