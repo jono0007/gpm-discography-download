@@ -18,7 +18,7 @@ if not os.path.exists(api.OAUTH_FILEPATH[:-17] + 'deviceID.txt'):
         output.write(deviceID)
         output.close()
 else:
-    deviceID = open(api.OAUTH_FILEPATH[:-17] + 'deviceID.txt').readlines()
+    deviceID = open(api.OAUTH_FILEPATH[:-17] + 'deviceID.txt').read().rstrip()
 api.oauth_login(deviceID)
 
 def clean(string):
