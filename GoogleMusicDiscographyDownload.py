@@ -5,6 +5,7 @@ from urllib.request import urlretrieve, urlopen
 from urllib.error import HTTPError,URLError
 from mutagen import id3,mp3,File
 import os
+import sys
 
 api = Mobileclient()
 if not os.path.exists(api.OAUTH_FILEPATH):
@@ -37,7 +38,10 @@ def clean(string):
     string = string[:100]
     return string
 
-artist = input('Enter artist ID or artist name to search: ')
+if sys.argv[1]:
+    artist = sys.argv[1]
+else:
+    artist = input('Enter artist ID or artist name to search: ')
 
 # Check for artist ID, search for one if needed
 if not len(artist) == 27 and not artist[0] == 'A':
