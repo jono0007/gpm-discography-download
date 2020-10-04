@@ -41,31 +41,35 @@ def clean(string):
 if sys.argv[1]:
     artist = sys.argv[1]
 else:
-    artist = input('Enter artist ID or artist name to search: ')
+    artist = input('Enter artist/album ID or artist name to search: ')
 
-# Check for artist ID, search for one if needed
-if not len(artist) == 27 and not artist[0] == 'A':
+# Check for ID, search for one if needed
+if len(artist) == 27 and artist[0] == 'A':
+    artistID = artist
+    albumIDs = []
+elif len(artist) == 27 and artist[0] == 'B':
+    albumIDs = [artist]
+else:
     # Attempt to search artist name and pull first result
     try:
         artistID = api.search(artist)['artist_hits'][0]['artist']['artistId']
+        albumIDs = []
     except:
         print("No search results for " + artist + '\nTry getting Artist ID from artist\'s Google Music page URL.\nIt starts with A and is 27 characters.')
         exit()
-else:
-    artistID = artist
 
 # Use artist ID to retrieve all album IDs
-albumIDs = []
-try:
-    for album in api.get_artist_info(artistID,True,0,0)['albums']:
-        albumIDs.append(album['albumId'])
-except KeyError:
-    print("No albums for " + artist)
-    exit()
-except:
-    print("Critical error for " + artist)
-    print(error)
-    exit()
+if len(albumIDs) == 0:
+    try:
+        for album in api.get_artist_info(artistID,True,0,0)['albums']:
+            albumIDs.append(album['albumId'])
+    except KeyError:
+        print("No albums for " + artist)
+        exit()
+    except:
+        print("Critical error for " + artist)
+        print(error)
+        exit()
 
 # Use album IDs to get track IDs
 trackIDs = []
